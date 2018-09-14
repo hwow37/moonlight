@@ -9,9 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" >
+
         <activity
             android:name=".InformActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" >
