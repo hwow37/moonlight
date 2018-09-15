@@ -12,4 +12,11 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:privateImeOptions">"defaultInputmode=korean</item>
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="android:textCursorDrawable">@color/colorDark</item>
+        <item name="android:textColor">@color/colorDark</item>
+        <item name="android:textColorHighlight">@color/colorAccent</item>
+    </style>
 </resources>

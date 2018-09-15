@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/colorPrimary">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/search_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="220dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/search1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/edit_search"
+                            android:layout_width="320dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="50dp"
+                            android:hint="검색어를 입력해주세요"
+                            android:inputType="textUri"
+                            android:selectAllOnFocus="false"
+                            android:singleLine="true"
+                            android:textColor="@color/colorDark"
+                            android:textColorHighlight="@color/colorAccent"
+                            app:theme="@style/EditTextStyle" />
+
+                        <ImageButton
+                            android:id="@+id/btn_search"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="40dp"
+                            android:onClick="onClick"
+                            android:src="@drawable/ic_search_black_24dp" />
+
+                    </LinearLayout>
+
+                    <TableLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TableRow>
+                            <Button
+                                android:id="@+id/btn_tag1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="35dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginRight="5dp"
+                                android:background="#00ff0000"
+                                android:paddingHorizontal="10dp"
+                                android:textColor="@color/colorDark"
+                                android:visibility="gone" />
+
+                            <Button
+                                android:id="@+id/btn_tag2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="35dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginRight="5dp"
+                                android:background="#00ff0000"
+                                android:paddingHorizontal="10dp"
+                                android:textColor="@color/colorDark"
+                                android:visibility="gone" />
+
+                            <Button
+                                android:id="@+id/btn_tag3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="35dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginRight="5dp"
+                                android:background="#00ff0000"
+                                android:paddingHorizontal="10dp"
+                                android:textColor="@color/colorDark"
+                                android:visibility="gone" />
+                        </TableRow>
+
+                        <TableRow>
+
+                            <Button
+                                android:id="@+id/btn_tag4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="35dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginRight="5dp"
+                                android:background="#00ff0000"
+                                android:paddingHorizontal="10dp"
+                                android:textColor="@color/colorDark"
+                                android:visibility="gone" />
+
+                            <Button
+                                android:id="@+id/btn_tag5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="35dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginRight="5dp"
+                                android:background="#00ff0000"
+                                android:paddingHorizontal="10dp"
+                                android:textColor="@color/colorDark"
+                                android:visibility="gone" />
+                        </TableRow>
+                    </TableLayout>
+                </LinearLayout>
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_marginBottom="40dp"
+                    app:tabTextColor="@color/colorDark"
+                    app:tabSelectedTextColor="@color/colorAccent">
+                </android.support.design.widget.TabLayout>
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/tabs"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:background="@color/colorPrimary">
+                </android.support.v4.view.ViewPager>
+                <include layout="@layout/content_main" />
+            </LinearLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimaryDark"
+        app:itemIconTint="@color/colorDark"
+        app:menu="@menu/navigation" />
+
+</android.support.design.widget.CoordinatorLayout>
+

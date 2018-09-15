@@ -63,7 +63,7 @@ public class InformActivity extends AppCompatActivity {
         TabLayout mTab = (TabLayout) findViewById(R.id.tabs);
         mTab.setupWithViewPager(mViewPager);
         mTab.bringToFront();
-        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.layout1);
+      //  FrameLayout frameLayout = (FrameLayout) findViewById(R.id.layout1);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
