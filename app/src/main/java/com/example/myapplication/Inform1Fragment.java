@@ -28,7 +28,7 @@ public class Inform1Fragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.inform1_fragment, container, false);
 
-        ImageView imageView1 = (ImageView)view.findViewById(R.id.detail1);
+        ImageView imageView1 = (ImageView)view.findViewById(R.id.info_detail_img);
         return view;
     }
 
