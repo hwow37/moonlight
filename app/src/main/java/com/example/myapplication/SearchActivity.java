@@ -8,6 +8,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,8 +26,9 @@ import com.example.myapplication.localdatabase.DbOpenHelper;
 import com.example.myapplication.localdatabase.InfoDB;
 import com.example.myapplication.localdatabase.SearchAdapter;
 
-public class SearchActivity extends AppCompatActivity {
+import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
+public class SearchActivity extends AppCompatActivity {
 
     private EditText editsearch;
     private ImageButton btn_search;
@@ -61,10 +63,10 @@ public class SearchActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    startActivity(new Intent(SearchActivity.this, MainActivity.class));
+                    startActivity(new Intent(SearchActivity.this, MainActivity.class).addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT));
+                    finish();
                     return true;
                 case R.id.navigation_search:
-                    startActivity(new Intent(SearchActivity.this, SearchActivity.class));
                     return true;
                 case R.id.navigation_add:
                     startActivity(new Intent(SearchActivity.this, AddActivity.class));
@@ -86,6 +88,10 @@ public class SearchActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode(navigation);
+
+        Menu menu = navigation.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
 
         editsearch = (EditText) findViewById(R.id.edit_search);
         editsearch.setPrivateImeOptions("defaultInputmode=korean;");

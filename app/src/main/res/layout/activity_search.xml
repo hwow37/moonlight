@@ -30,6 +30,8 @@
                 android:inputType="textUri"
                 android:textCursorDrawable="@null"
                 android:selectAllOnFocus="false"
+                app:theme="@style/EditTextStyle"
+                android:singleLine="true"
                 android:textColor="@color/colorDark" />
 
             <ImageButton

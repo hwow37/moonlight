@@ -14,9 +14,10 @@
     </style>
     <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
         <item name="android:privateImeOptions">"defaultInputmode=korean</item>
-        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlNormal">@color/colorDark</item>
         <item name="android:textCursorDrawable">@color/colorDark</item>
         <item name="android:textColor">@color/colorDark</item>
         <item name="android:textColorHighlight">@color/colorAccent</item>
+        <item name="android:colorControlActivated">@color/colorAccent</item>
     </style>
 </resources>
