@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
@@ -28,11 +27,11 @@
                 android:layout_marginTop="50dp"
                 android:hint="검색어를 입력해주세요"
                 android:inputType="textUri"
-                android:textCursorDrawable="@null"
                 android:selectAllOnFocus="false"
-                app:theme="@style/EditTextStyle"
                 android:singleLine="true"
-                android:textColor="@color/colorDark" />
+                android:textColor="@color/colorDark"
+                android:textCursorDrawable="@null"
+                app:theme="@style/EditTextStyle" />
 
             <ImageButton
                 android:id="@+id/btn_search"
@@ -135,26 +134,26 @@
     </LinearLayout>
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:focusable="false"
-    android:background="@color/colorPrimary">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:focusable="false">
 
-    <ListView
-    android:id="@+id/search_list"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:divider="@null" />
+        <ListView
+            android:id="@+id/search_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:divider="@null" />
     </LinearLayout>
 
     <android.support.design.widget.BottomNavigationView
-    android:id="@+id/navigation"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/colorPrimaryDark"
-    app:itemIconTint="@color/colorDark"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:menu="@menu/navigation" />
-    </LinearLayout>
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimaryDark"
+        app:itemIconTint="@color/colorDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/navigation" />
+</LinearLayout>
