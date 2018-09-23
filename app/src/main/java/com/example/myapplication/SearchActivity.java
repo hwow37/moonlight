@@ -114,7 +114,12 @@ public class SearchActivity extends AppCompatActivity {
         adapter.setArrayList(arraylist);
         list.addAll(arraylist);
         arraylist.clear();
-
+        arraylist.add(list.get(6));
+        arraylist.add(list.get(8));
+        arraylist.add(list.get(3));
+        arraylist.add(list.get(2));
+        arraylist.add(list.get(1));
+        arraylist.add(list.get(4));
 
         //검색창
         editsearch.addTextChangedListener(new TextWatcher() {

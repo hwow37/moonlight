@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -17,7 +16,7 @@ public class InformPageAdapter extends FragmentPagerAdapter{
             case 0:
                 return InformFragment.newInstance();
             case 1:
-                return Inform1Fragment.newInstance();
+                return ReviewFragment.newInstance();
             default:
                 return InformFragment.newInstance();
         }
@@ -34,9 +33,9 @@ public class InformPageAdapter extends FragmentPagerAdapter{
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "관련 정보";
-            case 1:
                 return "상세 정보";
+            case 1:
+                return "관련 후기";
             default:
                 return null;
         }

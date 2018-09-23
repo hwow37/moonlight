@@ -10,18 +10,15 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".InformActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name=".InformReviewActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:name=".InformActivity" />
         <activity
             android:name=".SearchActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
+            android:name=".FavoriteActivity"/>
+        <activity
             android:name=".ResultActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-
         <activity
             android:name=".MainActivity">
             <intent-filter>

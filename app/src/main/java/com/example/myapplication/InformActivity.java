@@ -1,22 +1,21 @@
 package com.example.myapplication;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.FrameLayout;
+
 
 
 public class InformActivity extends AppCompatActivity {
-    public FloatingActionButton fab;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -25,19 +24,18 @@ public class InformActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-
                     return true;
                 case R.id.navigation_search:
-
+                    startActivity(new Intent(InformActivity.this, SearchActivity.class));
                     return true;
                 case R.id.navigation_add:
-
+                    startActivity(new Intent(InformActivity.this, AddActivity.class));
                     return true;
                 case R.id.navigation_favorite:
-
+                    startActivity(new Intent(InformActivity.this, FavoriteActivity.class));
                     return true;
                 case R.id.navigation_my:
-
+                    startActivity(new Intent(InformActivity.this, MyActivity.class));
                     return true;
             }
             return false;
@@ -58,8 +56,6 @@ public class InformActivity extends AppCompatActivity {
         ViewPager mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mViewPager.setAdapter(informPageAdapter);
 
-        fab = (FloatingActionButton)findViewById(R.id.fab);
-
         TabLayout mTab = (TabLayout) findViewById(R.id.tabs);
         mTab.setupWithViewPager(mViewPager);
         mTab.bringToFront();
@@ -68,13 +64,6 @@ public class InformActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode(navigation);
-    }
-
-    public void onClick(View view) {
-        if(view.getId() == R.id.fab) {
-            Intent intent = new Intent(InformActivity.this, InformReviewActivity.class);
-            startActivity(intent);
-        }
     }
 
     @Override
