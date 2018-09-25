@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,6 @@ public class PageFourFragment extends Fragment {
     Context mContext;
     public static PageFourFragment newInstance() {
         Bundle args = new Bundle();
-
         PageFourFragment fragment = new PageFourFragment();
         fragment.setArguments(args);
         return fragment;

@@ -150,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
         mTab.setupWithViewPager(mViewPager);
         mTab.bringToFront();
 
-
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode(navigation);

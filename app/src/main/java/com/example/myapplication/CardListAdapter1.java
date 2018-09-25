@@ -1,38 +1,42 @@
 package com.example.myapplication;
 
-import android.content.Context;
-import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
+
+import android.app.Activity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.List;
 
-public class CardListAdapter extends RecyclerView.Adapter< CardListAdapter.ViewHolder> {
+public class CardListAdapter1 extends RecyclerView.Adapter< CardListAdapter1.ViewHolder> {
 
-    Context context;
+
+    private Activity activity;
     private List<Card> cardList;
 
 
-    public CardListAdapter(Context context, List<Card> cardList) {
+    public CardListAdapter1(Activity activity,List<Card> cardList) {
 
-        this.context = context;
+        this.activity = activity;
         this.cardList = cardList;
 
     }
 
 
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext())
+        View view= LayoutInflater.from(parent.getContext())
 
                 .inflate(R.layout.card_view, parent, false);
-
-        return new ViewHolder(v);
+        ViewHolder viewHolder = new ViewHolder(view);
+        return viewHolder;
 
     }
 
@@ -41,6 +45,7 @@ public class CardListAdapter extends RecyclerView.Adapter< CardListAdapter.ViewH
 
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
+
         holder.mTitle.setText(cardList.get(position).text);
         holder.mPlace.setText(cardList.get(position).text1);
         holder.mContentTitle.setText(cardList.get(position).text2);
@@ -48,14 +53,14 @@ public class CardListAdapter extends RecyclerView.Adapter< CardListAdapter.ViewH
         holder.mContent1.setText(cardList.get(position).text4);
         holder.mCount.setText(cardList.get(position).text5);
         holder.mImageView.setImageResource(cardList.get(position).img);
-        holder.cv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(context, InformActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(i);
-            }
-        });
+       // holder.cv.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+       //     public void onClick(View v) {
+       //         Intent i = new Intent(context, InformActivity.class);
+       //         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //        context.startActivity(i);
+      //      }
+       // });
 
     }
 
@@ -96,7 +101,13 @@ public class CardListAdapter extends RecyclerView.Adapter< CardListAdapter.ViewH
             mContent1 = (TextView) view.findViewById(R.id.tv_content1);
             mCount=(TextView)view.findViewById((R.id.tv_count));
             cv = (CardView) view.findViewById(R.id.cv);
-
+            mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(activity, "click " +
+                            cardList.get(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+                }
+            });
 
         }
 

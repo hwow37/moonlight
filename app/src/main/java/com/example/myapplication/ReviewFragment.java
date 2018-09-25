@@ -6,19 +6,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Inform1Fragment extends Fragment {
+public class ReviewFragment extends Fragment {
 
 
-    public static Inform1Fragment newInstance() {
+    public static ReviewFragment newInstance() {
         Bundle args = new Bundle();
 
-        Inform1Fragment fragment = new Inform1Fragment();
+        ReviewFragment fragment = new ReviewFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -26,9 +25,8 @@ public class Inform1Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.inform1_fragment, container, false);
+        View view = inflater.inflate(R.layout.review_fragment, container, false);
 
-        ImageView imageView1 = (ImageView)view.findViewById(R.id.info_detail_img);
         return view;
     }
 
