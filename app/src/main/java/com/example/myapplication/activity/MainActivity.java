@@ -1,10 +1,7 @@
-package com.example.myapplication;
+package com.example.myapplication.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,30 +9,14 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.myapplication.BottomNavigationViewHelper;
+import com.example.myapplication.adapter.PageAdapter;
+import com.example.myapplication.R;
 import com.example.myapplication.localdatabase.DbOpenHelper;
-import com.kakao.kakaolink.v2.KakaoLinkResponse;
-import com.kakao.kakaolink.v2.KakaoLinkService;
-import com.kakao.message.template.ButtonObject;
-import com.kakao.message.template.ContentObject;
-import com.kakao.message.template.FeedTemplate;
-import com.kakao.message.template.LinkObject;
-import com.kakao.message.template.SocialObject;
-import com.kakao.network.ErrorResult;
-import com.kakao.network.callback.ResponseCallback;
-import com.kakao.util.helper.log.Logger;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
-
-import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -150,23 +131,20 @@ public class MainActivity extends AppCompatActivity {
         mTab.setupWithViewPager(mViewPager);
         mTab.bringToFront();
 
+        // navigationBar set
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode(navigation);
 
-
         Menu menu = navigation.getMenu();
-
         for (int i = 1; i < 5; i++) {
             MenuItem menuItems = menu.getItem(i);
             menuItems.setCheckable(false);
         }
-
         MenuItem menuItems2 = menu.getItem(2);
         menuItems2.setChecked(true);
         MenuItem menuItem0 = menu.getItem(0);
         menuItem0.setCheckable(false);
-
 
         /// 해시 키 값 구하기
         /*try {

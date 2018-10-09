@@ -1,8 +1,13 @@
-package com.example.myapplication;
+package com.example.myapplication.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.example.myapplication.fragment.PageFourFragment;
+import com.example.myapplication.fragment.PageOneFragment;
+import com.example.myapplication.fragment.PageThreeFragment;
+import com.example.myapplication.fragment.PageTwoFragment;
 
 public class PageAdapter extends FragmentPagerAdapter {
 
@@ -18,13 +23,10 @@ public class PageAdapter extends FragmentPagerAdapter {
             case 0:
                 return PageOneFragment.newInstance();
             case 1:
-
                 return PageTwoFragment.newInstance();
             case 2:
-
                 return PageThreeFragment.newInstance();
             case 3:
-
                 return PageFourFragment.newInstance();
             default:
                 return PageOneFragment.newInstance();

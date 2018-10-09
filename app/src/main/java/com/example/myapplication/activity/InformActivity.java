@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.activity;
 
 
 import android.content.Intent;
@@ -9,9 +9,15 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.myapplication.BottomNavigationViewHelper;
+import com.example.myapplication.adapter.InformPageAdapter;
+import com.example.myapplication.R;
+
+import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
 
 public class InformActivity extends AppCompatActivity {
@@ -24,6 +30,8 @@ public class InformActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    startActivity(new Intent(InformActivity.this, MainActivity.class).addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT));
+                    finish();
                     return true;
                 case R.id.navigation_search:
                     startActivity(new Intent(InformActivity.this, SearchActivity.class));
@@ -49,7 +57,8 @@ public class InformActivity extends AppCompatActivity {
         getSupportActionBar().setElevation(0);
         getSupportActionBar().setCustomView(R.layout.inform_actionbar);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        Log.i("onClick", "InformActivity");
 
         InformPageAdapter informPageAdapter = new InformPageAdapter(
                 getSupportFragmentManager());
@@ -59,29 +68,40 @@ public class InformActivity extends AppCompatActivity {
         TabLayout mTab = (TabLayout) findViewById(R.id.tabs);
         mTab.setupWithViewPager(mViewPager);
         mTab.bringToFront();
-      //  FrameLayout frameLayout = (FrameLayout) findViewById(R.id.layout1);
+        //FrameLayout frameLayout = (FrameLayout) findViewById(R.id.layout1);
 
+        // navigationBar set
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode(navigation);
+
+        Menu menu = navigation.getMenu();
+        for (int i = 1; i < 5; i++) {
+            MenuItem menuItems = menu.getItem(i);
+            menuItems.setCheckable(false);
+        }
+        MenuItem menuItems2 = menu.getItem(2);
+        menuItems2.setChecked(true);
+        MenuItem menuItem0 = menu.getItem(0);
+        menuItem0.setCheckable(false);
     }
 
     @Override
-    public boolean onCreateOptionsMenu (Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_share, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-       // Intent intent = new Intent(InformActivity.this, ReviewActivity.class);
+        // Intent intent = new Intent(InformActivity.this, ReviewActivity.class);
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
 
-        if(id == R.id.action_share) {
+        if (id == R.id.action_share) {
 
             return true;
         }

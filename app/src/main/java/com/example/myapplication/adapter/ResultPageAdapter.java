@@ -1,12 +1,15 @@
-package com.example.myapplication;
+package com.example.myapplication.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-public class InformPageAdapter extends FragmentPagerAdapter{
+import com.example.myapplication.fragment.ResultInfoFragment;
+import com.example.myapplication.fragment.ResultReviewFragment;
 
-    public InformPageAdapter(FragmentManager fm) {
+public class ResultPageAdapter extends FragmentPagerAdapter {
+
+    public ResultPageAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -14,15 +17,15 @@ public class InformPageAdapter extends FragmentPagerAdapter{
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return InformFragment.newInstance();
+                return ResultInfoFragment.newInstance();
             case 1:
-                return ReviewFragment.newInstance();
+                return ResultReviewFragment.newInstance();
             default:
-                return InformFragment.newInstance();
+                return ResultInfoFragment.newInstance();
         }
     }
 
-    private static int PAGE_NUMBER = 2;
+    private  static  int PAGE_NUMBER = 2;
 
     @Override
     public int getCount() {
@@ -33,7 +36,7 @@ public class InformPageAdapter extends FragmentPagerAdapter{
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "상세 정보";
+                return "검색 결과";
             case 1:
                 return "관련 후기";
             default:
@@ -41,3 +44,4 @@ public class InformPageAdapter extends FragmentPagerAdapter{
         }
     }
 }
+

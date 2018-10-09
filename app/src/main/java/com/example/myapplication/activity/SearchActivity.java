@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.activity;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -24,9 +24,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+import com.example.myapplication.BottomNavigationViewHelper;
+import com.example.myapplication.R;
 import com.example.myapplication.localdatabase.DbOpenHelper;
 import com.example.myapplication.localdatabase.InfoDB;
-import com.example.myapplication.localdatabase.SearchAdapter;
+import com.example.myapplication.adapter.SearchAdapter;
 
 import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
@@ -87,23 +89,6 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        BottomNavigationViewHelper.disableShiftMode(navigation);
-
-
-        Menu menu = navigation.getMenu();
-        for (int i = 1; i < 5; i++) {
-            MenuItem menuItems = menu.getItem(i);
-            menuItems.setCheckable(false);
-        }
-
-        MenuItem menuItems2 = menu.getItem(2);
-        menuItems2.setChecked(true);
-        MenuItem menuItem0 = menu.getItem(0);
-        menuItem0.setCheckable(false);
-
 
         editsearch = (EditText) findViewById(R.id.edit_search);
         editsearch.setPrivateImeOptions("defaultInputmode=korean;");
@@ -176,6 +161,21 @@ public class SearchActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // navigationBar set
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        BottomNavigationViewHelper.disableShiftMode(navigation);
+
+        Menu menu = navigation.getMenu();
+        for (int i = 1; i < 5; i++) {
+            MenuItem menuItems = menu.getItem(i);
+            menuItems.setCheckable(false);
+        }
+        MenuItem menuItems2 = menu.getItem(2);
+        menuItems2.setChecked(true);
+        MenuItem menuItem0 = menu.getItem(0);
+        menuItem0.setCheckable(false);
     }
 
     public void search(String charText) {

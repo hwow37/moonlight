@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.myapplication.Card;
+import com.example.myapplication.R;
+import com.example.myapplication.activity.InformActivity;
+
 import java.util.List;
 
 public class CardListAdapter extends RecyclerView.Adapter< CardListAdapter.ViewHolder> {

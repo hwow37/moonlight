@@ -1,4 +1,4 @@
-package com.example.myapplication.localdatabase;
+package com.example.myapplication.adapter;
 
 
 import android.content.Context;
@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.localdatabase.InfoDB;
 
 import java.util.ArrayList;
 

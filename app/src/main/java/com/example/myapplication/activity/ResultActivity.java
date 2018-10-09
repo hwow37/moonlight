@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,12 +7,19 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+
+import com.example.myapplication.BottomNavigationViewHelper;
+import com.example.myapplication.R;
+import com.example.myapplication.adapter.ResultPageAdapter;
+
+import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
 
 public class ResultActivity extends AppCompatActivity {
@@ -36,7 +43,7 @@ public class ResultActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    startActivity(new Intent(ResultActivity.this, MainActivity.class));
+                    startActivity(new Intent(ResultActivity.this, MainActivity.class).addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT));
                     return true;
                 case R.id.navigation_search:
                     startActivity(new Intent(ResultActivity.this, SearchActivity.class));
@@ -101,17 +108,14 @@ public class ResultActivity extends AppCompatActivity {
         mTab.setupWithViewPager(mViewPager);
         mTab.bringToFront();
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        BottomNavigationViewHelper.disableShiftMode(navigation);
-
-        mViewPager= (ViewPager) findViewById(R.id.view_pager);
+        //
+        mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mViewPager.setAdapter(mResultPageAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if(position != 0 ){
-                    mlayout = (LinearLayout)findViewById(R.id.search_top);
+                if (position != 0) {
+                    mlayout = (LinearLayout) findViewById(R.id.search_top);
                     mlayout.setVisibility(View.GONE);
                 }
             }
@@ -123,13 +127,29 @@ public class ResultActivity extends AppCompatActivity {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-            if(state != 1){
-                mlayout = (LinearLayout)findViewById(R.id.search_top);
-                mlayout.setVisibility(View.GONE);
-            }
+                if (state != 1) {
+                    mlayout = (LinearLayout) findViewById(R.id.search_top);
+                    mlayout.setVisibility(View.GONE);
+                }
 
             }
-        }); }
+        });
+
+        // navigationBar set
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        BottomNavigationViewHelper.disableShiftMode(navigation);
+
+        Menu menu = navigation.getMenu();
+        for (int i = 1; i < 5; i++) {
+            MenuItem menuItems = menu.getItem(i);
+            menuItems.setCheckable(false);
+        }
+        MenuItem menuItems2 = menu.getItem(2);
+        menuItems2.setChecked(true);
+        MenuItem menuItem0 = menu.getItem(0);
+        menuItem0.setCheckable(false);
     }
+}
 
 
