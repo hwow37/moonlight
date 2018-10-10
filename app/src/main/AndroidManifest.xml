@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapplication">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+
 
     <application
         android:allowBackup="true"
@@ -9,30 +13,23 @@
         android:supportsRtl="true"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-
-        <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="@string/kakao_app_key" />
-
         <activity
-            android:name=".activity.InformActivity" />
+            android:name=".AddActivity" />
         <activity
-            android:name=".activity.SearchActivity"
+            android:name=".InformActivity" />
+        <activity
+            android:name=".SearchActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".activity.FavoriteActivity"/>
+            android:name=".FavoriteActivity"/>
         <activity
-            android:name=".activity.ResultActivity"
+            android:name=".ResultActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".activity.MainActivity">
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="@string/kakao_scheme"
-                    android:host="@string/kakaolink_host" />
             </intent-filter>
         </activity>
     </application>

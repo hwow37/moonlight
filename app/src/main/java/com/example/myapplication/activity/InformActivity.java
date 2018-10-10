@@ -1,4 +1,4 @@
-package com.example.myapplication.activity;
+package com.example.myapplication.adapter;
 
 
 import android.content.Intent;
@@ -14,7 +14,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.myapplication.BottomNavigationViewHelper;
-import com.example.myapplication.adapter.InformPageAdapter;
+import com.example.myapplication.activity.AddActivity;
+import com.example.myapplication.activity.FavoriteActivity;
+import com.example.myapplication.activity.MainActivity;
+import com.example.myapplication.activity.MyActivity;
+import com.example.myapplication.activity.SearchActivity;
 import com.example.myapplication.R;
 
 import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;

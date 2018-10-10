@@ -1,7 +1,5 @@
 package com.example.myapplication;
 
-
-
 public class Card {
     public String text;
     public String text1;
