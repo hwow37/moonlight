@@ -23,10 +23,12 @@
         android:paddingRight="5px">
 
         <TextView
+            android:id="@+id/testApiText"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:text="Insert"
-            android:textSize="20dp" />
+            android:textColor="@color/colorBlack"
+            android:textSize="20dp"/>
 
         <TextView
             android:id="@+id/APItestText"
@@ -43,11 +45,6 @@
             android:id="@+id/APItestImg"
             android:layout_width="300dp"
             android:layout_height="300dp" />
-
-        <ImageView
-            android:id="@+id/imgTn"
-            android:layout_width="150dp"
-            android:layout_height="150dp" />
 
     </LinearLayout>
 </ScrollView>

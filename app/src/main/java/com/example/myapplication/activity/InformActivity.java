@@ -1,8 +1,12 @@
-package com.example.myapplication.adapter;
+package com.example.myapplication.activity;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
@@ -12,20 +16,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.myapplication.BottomNavigationViewHelper;
-import com.example.myapplication.activity.AddActivity;
-import com.example.myapplication.activity.FavoriteActivity;
-import com.example.myapplication.activity.MainActivity;
-import com.example.myapplication.activity.MyActivity;
-import com.example.myapplication.activity.SearchActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.adapter.InformPageAdapter;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
 
 public class InformActivity extends AppCompatActivity {
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -58,21 +65,20 @@ public class InformActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inform);
+
         getSupportActionBar().setElevation(0);
         getSupportActionBar().setCustomView(R.layout.inform_actionbar);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 
         Log.i("onClick", "InformActivity");
 
-        InformPageAdapter informPageAdapter = new InformPageAdapter(
-                getSupportFragmentManager());
+        InformPageAdapter informPageAdapter = new InformPageAdapter(getSupportFragmentManager());
         ViewPager mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mViewPager.setAdapter(informPageAdapter);
 
         TabLayout mTab = (TabLayout) findViewById(R.id.tabs);
         mTab.setupWithViewPager(mViewPager);
         mTab.bringToFront();
-        //FrameLayout frameLayout = (FrameLayout) findViewById(R.id.layout1);
 
         // navigationBar set
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -99,11 +105,7 @@ public class InformActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        // Intent intent = new Intent(InformActivity.this, ReviewActivity.class);
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
 
         if (id == R.id.action_share) {
 
@@ -112,4 +114,3 @@ public class InformActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
-

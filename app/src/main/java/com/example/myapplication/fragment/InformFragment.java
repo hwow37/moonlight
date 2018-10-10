@@ -1,10 +1,12 @@
 package com.example.myapplication.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.activity.MainActivity;
+import com.example.myapplication.adapter.InformPageAdapter;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -28,18 +32,17 @@ import java.net.URL;
  * A simple {@link Fragment} subclass.
  */
 public class InformFragment extends Fragment {
+    String key = "a4hJeRUZI4ctHoyx8WeedRazD%2FT442PIqdbpisLSyXdEsWF49VFSQLcv553T%2BTWQslP%2Be%2FBg0K94qm2yMKd7%2FA%3D%3D";
+
     TextView txtView;
+    TextView txtView2;
     Button urlBtn;
     ImageView imgView;
-    ImageView imgViewTn;
 
     Bitmap bitmap;
-    Bitmap bitmapTn;
     String getimgUrl;
 
     double placeUrl1 = 0, placeUrl2 = 0;
-
-    String key = "a4hJeRUZI4ctHoyx8WeedRazD%2FT442PIqdbpisLSyXdEsWF49VFSQLcv553T%2BTWQslP%2Be%2FBg0K94qm2yMKd7%2FA%3D%3D";
 
     public static InformFragment newInstance() {
         Bundle args = new Bundle();
@@ -53,6 +56,29 @@ public class InformFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inform, container, false);
+        txtView = (TextView)view.findViewById(R.id.testApiText);
+        txtView2 = (TextView)view.findViewById(R.id.APItestText);
+        imgView = (ImageView)view.findViewById(R.id.APItestImg);
+        urlBtn = (Button)view.findViewById(R.id.urlTxtBtn);
+
+        Thread seturl = new Thread() {
+            @Override
+            public void run() {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        parUrl();
+                    }
+                });
+            }
+        };
+        seturl.start();
+
+        return view;
+    }
+
+
+    public void parUrl() {
 
         boolean initem = false, inseq = false, intitle = false, instartDate = false, inendDate = false;
         boolean inplace = false, inrealName = false, inarea = false, inprice = false, incontents1 = false;
@@ -63,6 +89,7 @@ public class InformFragment extends Fragment {
         String realName = null, area = null, price = null, contents1 = null, isinUrl = null;
         String phone = null, imgUrl = null, placeAddr = null, placeSeq = null;
 
+        StrictMode.enableDefaults();
 
         try {
             URL url = new URL("http://www.culture.go.kr/openapi/rest/publicperformancedisplays/d/" //URL
@@ -79,7 +106,7 @@ public class InformFragment extends Fragment {
 
             parser.setInput(url.openStream(), null);
 
-            /*int parserEvent = parser.getEventType();
+            int parserEvent = parser.getEventType();
             System.out.println("파싱시작합니다.");
 
             while (parserEvent != XmlPullParser.END_DOCUMENT) {
@@ -142,6 +169,10 @@ public class InformFragment extends Fragment {
                     case XmlPullParser.TEXT://parser가 내용에 접근했을때
                         if (inseq) { //isTitle이 true일 때 태그의 내용을 저장.
                             seq = parser.getText();
+                            //txtView2.setText(seq);
+
+                            Log.i("innnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnndernnnnnnnnnnnnnnn", ""+seq);
+
                             inseq = false;
                         }
                         if (intitle) { //isAddress이 true일 때 태그의 내용을 저장.
@@ -191,12 +222,12 @@ public class InformFragment extends Fragment {
                         }
                         if (inplaceUrl1) { //isMapy이 true일 때 태그의 내용을 저장.
                             placeUrl1 = Double.parseDouble(parser.getText());
-                            Log.i("gps", ""+placeUrl1);
+                            Log.i("gps", "" + placeUrl1);
                             inplaceUrl1 = false;
                         }
                         if (inplaceUrl2) { //isMapy이 true일 때 태그의 내용을 저장.
                             placeUrl2 = Double.parseDouble(parser.getText());
-                            Log.i("gps", ""+placeUrl2);
+                            Log.i("gps", "" + placeUrl2);
                             inplaceUrl2 = false;
                         }
                         if (inplaceAddr) { //isMapy이 true일 때 태그의 내용을 저장.
@@ -211,7 +242,7 @@ public class InformFragment extends Fragment {
 
                     case XmlPullParser.END_TAG:
                         if (parser.getName().equals("msgBody")) {
-                            txtView.setText(txtView.getText()
+                            txtView2.setText(txtView2.getText()
                                     + "식별번호 : " + seq
                                     + "\n 제목: " + title
                                     + "\n 시작 : " + startDate
@@ -226,8 +257,6 @@ public class InformFragment extends Fragment {
                                     + "\n 주소 식별번호 : " + placeSeq
                                     + "\n");
 
-                            //urlTxtView.setText("티켓 주소 : " + isinUrl);
-
                             URL webimgurl = new URL(getimgUrl);
 
                             HttpURLConnection conn = (HttpURLConnection) webimgurl.openConnection();
@@ -237,26 +266,10 @@ public class InformFragment extends Fragment {
                             InputStream is = conn.getInputStream();
                             bitmap = BitmapFactory.decodeStream(is);
 
-                            int height = bitmap.getHeight();
-                            int width = bitmap.getWidth();
-
-                            double hwr = 0;
-                            if(height > width) {
-                                hwr = (double)height / (double)width;
-                            } else {
-                                hwr = (double)width / (double)height;
-                            }
-
-                            double heightR = hwr * 67;
-
-                            bitmapTn = Bitmap.createScaledBitmap(bitmap, 67, (int)heightR, true);
-
                             imgView.setImageBitmap(bitmap);
-                            imgViewTn.setImageBitmap(bitmapTn);
-
-                            //mapFragment.getMapAsync(this);
 
                             final String finalIsinUrl = isinUrl;
+
                             urlBtn.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -270,12 +283,11 @@ public class InformFragment extends Fragment {
                         break;
                 }
                 parserEvent = parser.next();
-            }*/
+            }
         } catch (Exception e) {
-            txtView.setText("에러가..났습니다...");
+            //txtView.setText("에러가..났습니다...");
+            Log.i("onUrl", "into catch");
         }
 
-        return view;
     }
-
 }
