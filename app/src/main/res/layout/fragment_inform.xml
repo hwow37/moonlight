@@ -1,53 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".fragment.InformFragment">
-    
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"></RelativeLayout>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingRight="5px">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/testApiText"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="Insert"
-            android:textColor="@color/colorBlack"
-            android:textSize="20dp"/>
-
-        <TextView
-            android:id="@+id/APItestText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/urlTxtBtn"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="티켓 구매 바로가기"/>
+            android:orientation="vertical"
+            android:paddingRight="5px">
 
-        <ImageView
-            android:id="@+id/APItestImg"
-            android:layout_width="300dp"
-            android:layout_height="300dp" />
+            <TextView
+                android:id="@+id/testApiText"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Insert"
+                android:textColor="@color/colorBlack"
+                android:textSize="20dp" />
 
-    </LinearLayout>
-</ScrollView>
+            <TextView
+                android:id="@+id/APItestText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/urlTxtBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="티켓 구매 바로가기" />
+
+
+            <ImageView
+                android:id="@+id/APItestImg"
+                android:layout_width="300dp"
+                android:layout_height="300dp" />
+
+            <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+                android:id="@+id/APIInfoImg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>

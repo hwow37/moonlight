@@ -2,11 +2,7 @@ package com.example.myapplication.activity;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
@@ -16,23 +12,36 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.myapplication.BottomNavigationViewHelper;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.InformPageAdapter;
+import com.example.myapplication.fragment.InformFragment;
+import com.kakao.kakaolink.v2.KakaoLinkResponse;
+import com.kakao.kakaolink.v2.KakaoLinkService;
+import com.kakao.message.template.ButtonObject;
+import com.kakao.message.template.ContentObject;
+import com.kakao.message.template.FeedTemplate;
+import com.kakao.message.template.LinkObject;
+import com.kakao.message.template.SocialObject;
+import com.kakao.network.ErrorResult;
+import com.kakao.network.callback.ResponseCallback;
+import com.kakao.util.helper.log.Logger;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserFactory;
-
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
 
-public class InformActivity extends AppCompatActivity {
+public class InformActivity extends AppCompatActivity
+        implements InformFragment.FragToActivityListener{
+
+    String infotitle;
+    String infosdate;
+    String infoedate;
+    String infoplace;
+    String imgurl;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -94,6 +103,43 @@ public class InformActivity extends AppCompatActivity {
         menuItems2.setChecked(true);
         MenuItem menuItem0 = menu.getItem(0);
         menuItem0.setCheckable(false);
+
+
+        // 카카오톡 공유 기능
+        /*FeedTemplate params = FeedTemplate
+                .newBuilder(ContentObject.newBuilder("디저트 사진",
+                        "http://mud-kage.kakao.co.kr/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg",
+                        LinkObject.newBuilder().setWebUrl("https://developers.kakao.com")
+                                .setMobileWebUrl("https://developers.kakao.com").build())
+                        .setDescrption("아메리카노, 빵, 케익")
+                        .build())
+                .setSocial(SocialObject.newBuilder().setLikeCount(10).setCommentCount(20)
+                        .setSharedCount(30).setViewCount(40).build())
+                .addButton(new ButtonObject("웹에서 보기", LinkObject.newBuilder().setWebUrl("'https://developers.kakao.com").setMobileWebUrl("'https://developers.kakao.com").build()))
+                .addButton(new ButtonObject("앱에서 보기", LinkObject.newBuilder()
+                        .setWebUrl("'https://developers.kakao.com")
+                        .setMobileWebUrl("'https://developers.kakao.com")
+                        .setAndroidExecutionParams("key1=value1")
+                        .setIosExecutionParams("key1=value1")
+                        .build()))
+                .build();
+
+        Map<String, String> serverCallbackArgs = new HashMap<String, String>();
+        serverCallbackArgs.put("user_id", "${current_user_id}");
+        serverCallbackArgs.put("product_id", "${shared_product_id}");
+
+        KakaoLinkService.getInstance().sendDefault(this, params, serverCallbackArgs, new ResponseCallback<KakaoLinkResponse>() {
+            @Override
+            public void onFailure(ErrorResult errorResult) {
+                Logger.e(errorResult.toString());
+            }
+
+            @Override
+            public void onSuccess(KakaoLinkResponse result) {
+                Log.i("onSuccess", " result Log");
+                // 템플릿 밸리데이션과 쿼터 체크가 성공적으로 끝남. 톡에서 정상적으로 보내졌는지 보장은 할 수 없다. 전송 성공 유무는 서버콜백 기능을 이용하여야 한다.
+            }
+        });*/
     }
 
     @Override
@@ -109,8 +155,54 @@ public class InformActivity extends AppCompatActivity {
 
         if (id == R.id.action_share) {
 
+            FeedTemplate params = FeedTemplate
+                    .newBuilder(ContentObject.newBuilder(infotitle,
+                            imgurl,
+                            LinkObject.newBuilder().setWebUrl("https://developers.kakao.com")
+                                    .setMobileWebUrl("https://developers.kakao.com").build())
+                            .setDescrption(infosdate+" ~ "+infoedate+"\n"+infoplace)
+                            .build())
+                    //.setSocial(SocialObject.newBuilder().setLikeCount(10).setCommentCount(20)
+                      //      .setSharedCount(30).setViewCount(40).build())
+                    //.addButton(new ButtonObject("웹에서 보기", LinkObject.newBuilder().setWebUrl("'https://developers.kakao.com").setMobileWebUrl("'https://developers.kakao.com").build()))
+                    .addButton(new ButtonObject("앱에서 보기", LinkObject.newBuilder()
+                            .setWebUrl("'https://developers.kakao.com")
+                            .setMobileWebUrl("'https://developers.kakao.com")
+                            .setAndroidExecutionParams("key1=value1")
+                            .setIosExecutionParams("key1=value1")
+                            .build()))
+                    .build();
+
+            Map<String, String> serverCallbackArgs = new HashMap<String, String>();
+            serverCallbackArgs.put("user_id", "${current_user_id}");
+            serverCallbackArgs.put("product_id", "${shared_product_id}");
+
+            KakaoLinkService.getInstance().sendDefault(this, params, serverCallbackArgs, new ResponseCallback<KakaoLinkResponse>() {
+                @Override
+                public void onFailure(ErrorResult errorResult) {
+                    Logger.e(errorResult.toString());
+                }
+
+                @Override
+                public void onSuccess(KakaoLinkResponse result) {
+                    Log.i("onSuccess", " result Log");
+                    // 템플릿 밸리데이션과 쿼터 체크가 성공적으로 끝남. 톡에서 정상적으로 보내졌는지 보장은 할 수 없다. 전송 성공 유무는 서버콜백 기능을 이용하여야 한다.
+                }
+            });
+
+
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void SetDataFtoA(String infoTitle, String infoSdate, String infoEdate, String infoPlace, String imgUrl){
+        infotitle = infoTitle;
+        infosdate = infoSdate;
+        infoedate = infoEdate;
+        infoplace = infoPlace;
+        imgurl = imgUrl;
+    }
+
 }

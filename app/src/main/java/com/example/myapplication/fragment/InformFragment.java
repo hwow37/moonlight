@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,9 +17,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.example.myapplication.R;
-import com.example.myapplication.activity.MainActivity;
-import com.example.myapplication.adapter.InformPageAdapter;
+import com.example.myapplication.activity.InformActivity;
+
+import net.daum.mf.map.api.MapPoint;
+import net.daum.mf.map.api.MapView;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -31,15 +36,21 @@ import java.net.URL;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InformFragment extends Fragment {
-    String key = "a4hJeRUZI4ctHoyx8WeedRazD%2FT442PIqdbpisLSyXdEsWF49VFSQLcv553T%2BTWQslP%2Be%2FBg0K94qm2yMKd7%2FA%3D%3D";
+public class InformFragment extends Fragment {//implements OnMapReadyCallback {
+    private String key = "a4hJeRUZI4ctHoyx8WeedRazD%2FT442PIqdbpisLSyXdEsWF49VFSQLcv553T%2BTWQslP%2Be%2FBg0K94qm2yMKd7%2FA%3D%3D";
+
+    private FragToActivityListener fragToActivityListener;
+    //private MapView mapView;
+    //private GoogleMap googleMap;
+    private MapView kakaoMapView;
 
     TextView txtView;
     TextView txtView2;
     Button urlBtn;
     ImageView imgView;
-
-    Bitmap bitmap;
+    SubsamplingScaleImageView imgInfo;
+    Bitmap bitmapwep;
+    Bitmap bitmapinfo;
     String getimgUrl;
 
     double placeUrl1 = 0, placeUrl2 = 0;
@@ -53,14 +64,54 @@ public class InformFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_inform, container, false);
-        txtView = (TextView)view.findViewById(R.id.testApiText);
-        txtView2 = (TextView)view.findViewById(R.id.APItestText);
-        imgView = (ImageView)view.findViewById(R.id.APItestImg);
-        urlBtn = (Button)view.findViewById(R.id.urlTxtBtn);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof FragToActivityListener) {
+            fragToActivityListener = (FragToActivityListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + "must implement FragToActivityListener");
+        }
+    }
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_inform, container, false);
+
+        //kakaoMapView = new MapView(getActivity());
+
+        txtView = (TextView) view.findViewById(R.id.testApiText);
+        txtView2 = (TextView) view.findViewById(R.id.APItestText);
+        imgView = (ImageView) view.findViewById(R.id.APItestImg);
+        imgInfo = (SubsamplingScaleImageView) view.findViewById(R.id.APIInfoImg);
+        urlBtn = (Button) view.findViewById(R.id.urlTxtBtn);
+
+        /*// kakao Map setting
+        ViewGroup mapViewContainer = (ViewGroup) view.findViewById(R.id.map);
+        mapViewContainer.addView(kakaoMapView);
+        //kakaoMapView.setMapViewEventListener(this); // this에 MapView.MapViewEventListener 구현.
+        //kakaoMapView.setPOIItemEventListener(this);
+
+        // 중심점 변경
+        kakaoMapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.53737528, 127.00557633), true);
+
+        // 줌 레벨 변경
+        kakaoMapView.setZoomLevel(7, true);
+
+        // 중심점 변경 + 줌 레벨 변경
+        kakaoMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(33.41, 126.52), 9, true);
+
+        // 줌 인
+        kakaoMapView.zoomIn(true);
+
+        // 줌 아웃
+        kakaoMapView.zoomOut(true);
+*/
+
+        //mapView = (MapView) view.findViewById(R.id.map);
+        //mapView.onCreate(savedInstanceState);
+        //mapView.getMapAsync(this);
         Thread seturl = new Thread() {
             @Override
             public void run() {
@@ -77,7 +128,66 @@ public class InformFragment extends Fragment {
         return view;
     }
 
+    /*@Override
+    public void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        fragToActivityListener = null;
+    }
+
+    @Override
+    public void onPause() {
+        mapView.onPause();
+        super.onPause();
+    }
+
+
+    @Override
+    public void onDestroy() {
+        mapView.onDestroy();
+        super.onDestroy();
+    }
+
+
+    @Override
+    public void onLowMemory() {
+        mapView.onLowMemory();
+        super.onLowMemory();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (mapView != null) {
+            mapView.onCreate(savedInstanceState);
+        }
+    }*/
+
+    // fragment 에서 Activity로 데이터 전달
+    public interface FragToActivityListener {
+        void SetDataFtoA(String infoTitle, String infoSdate, String infoEdate, String infoPlace, String imgUrl);
+    }
+
+
+    //  api로 받아온 값들을 파싱한다.
     public void parUrl() {
 
         boolean initem = false, inseq = false, intitle = false, instartDate = false, inendDate = false;
@@ -169,10 +279,6 @@ public class InformFragment extends Fragment {
                     case XmlPullParser.TEXT://parser가 내용에 접근했을때
                         if (inseq) { //isTitle이 true일 때 태그의 내용을 저장.
                             seq = parser.getText();
-                            //txtView2.setText(seq);
-
-                            Log.i("innnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnndernnnnnnnnnnnnnnn", ""+seq);
-
                             inseq = false;
                         }
                         if (intitle) { //isAddress이 true일 때 태그의 내용을 저장.
@@ -257,16 +363,30 @@ public class InformFragment extends Fragment {
                                     + "\n 주소 식별번호 : " + placeSeq
                                     + "\n");
 
+                            fragToActivityListener.SetDataFtoA(title, startDate, endDate, place, getimgUrl);
+
                             URL webimgurl = new URL(getimgUrl);
+                            URL infoimgurl = new URL(parContents(contents1));
 
-                            HttpURLConnection conn = (HttpURLConnection) webimgurl.openConnection();
-                            conn.setDoInput(true);
-                            conn.connect();
+                            HttpURLConnection conn1 = (HttpURLConnection) webimgurl.openConnection();
+                            HttpURLConnection conn2 = (HttpURLConnection) infoimgurl.openConnection();
+                            conn1.setDoInput(true);
+                            conn2.setDoInput(true);
+                            conn1.connect();
+                            conn2.connect();
 
-                            InputStream is = conn.getInputStream();
-                            bitmap = BitmapFactory.decodeStream(is);
+                            InputStream is1 = conn1.getInputStream();
+                            InputStream is2 = conn2.getInputStream();
+                            bitmapwep = BitmapFactory.decodeStream(is1);
+                            bitmapinfo = BitmapFactory.decodeStream(is2);
 
-                            imgView.setImageBitmap(bitmap);
+                            imgView.setImageBitmap(bitmapwep);
+                            imgInfo.setImage(ImageSource.bitmap(bitmapinfo));
+
+                            //LatLng placeGps = new LatLng(placeUrl2, placeUrl1);
+                            //googleMap.moveCamera(CameraUpdateFactory.newLatLng(placeGps));
+                            //mapView.getMapAsync(this);
+                            //mapView.getMapAsync(this);
 
                             final String finalIsinUrl = isinUrl;
 
@@ -289,5 +409,32 @@ public class InformFragment extends Fragment {
             Log.i("onUrl", "into catch");
         }
 
+    }
+
+    /*@Override
+    public void onMapReady(final GoogleMap map) {
+        LatLng placeLat = new LatLng(127.004, 37.580);//,placeUrl2, placeUrl1);
+
+        googleMap = map;
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(placeLat);
+        markerOptions.title("서울");
+        markerOptions.snippet("한국의 수도");
+        googleMap.addMarker(markerOptions);
+
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(placeLat));
+        Log.i("GOOGLE_MAP", "onMapReady");
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(16));
+    }*/
+
+    public String parContents(String str) {
+        String[] temp1;
+        String[] temp2;
+        temp1 = str.split("src=\"");
+        temp2 = temp1[1].split("\"");
+        System.out.println(temp2[0]);
+
+        return temp2[0];
     }
 }
